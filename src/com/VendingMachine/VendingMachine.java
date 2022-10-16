@@ -1,5 +1,6 @@
 package com.VendingMachine;
 
+import com.VendingMachine.exception.ProductNotThereException;
 import com.VendingMachine.products.Product;
 
 import java.util.ArrayList;
@@ -40,14 +41,20 @@ public class VendingMachine {
         return vendingMachineAdmin;
     }
 
-    public void removeFromVending(Product product){
-        getProductList().remove(product);
-        updateTheQuantity(product);
+    public void removeFromVending(Product product) {
+        try{
+            getProductList().remove(product);
+            updateTheQuantity(product);
+        }catch (ProductNotThereException p){
+            System.out.println(p.getMessage());
+        }
+
     }
 
-    private void updateTheQuantity(Product product) {
+    private void updateTheQuantity(Product product) throws ProductNotThereException {
         int getQ = vendingMachineAdmin.getMappingQuantity().get(product);
         getQ -= 1;
+        if(getQ < 0) throw new ProductNotThereException("Quantity should not exceed the available quantity");
         vendingMachineAdmin.getMappingQuantity().put(product, getQ);
     }
 }

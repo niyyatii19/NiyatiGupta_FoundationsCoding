@@ -15,7 +15,13 @@ public class VendingMachineAdmin {
     }
 
     public void addProductsInVending(Product product, int quantity){
-        mappingQuantity.put(product, quantity);
+        if(mappingQuantity.containsKey(product)){
+            int q = mappingQuantity.get(product);
+            q  += quantity;
+            mappingQuantity.put(product, q);
+        }else{
+            mappingQuantity.put(product, quantity);
+        }
         for(int i=0; i<quantity; i++){
             vendingMachine.addProducts(product);
         }

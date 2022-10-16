@@ -3,6 +3,9 @@ package com.VendingMachine.customers;
 import com.VendingMachine.products.Product;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Billing {
     private Customer customer;
@@ -33,7 +36,10 @@ public class Billing {
     }
 
     public String displayCartItems(){
-       return customer.getCartDetails().getProductList().toString();
+        List<Product> products = customer.getCartDetails().getProductList();
+        Map<Product, Long> map = products.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        return map.toString();
     }
 
 

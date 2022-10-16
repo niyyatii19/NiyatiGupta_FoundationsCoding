@@ -12,6 +12,8 @@ public class Main {
 	// write your code here
         vendingMachineAdmin.setVendingMachine(vendingMachine);
         vendingMachine.setVendingMachineAdmin(vendingMachineAdmin);
+        vendingMachineAdmin.mappingTheProduct(1, 12);
+
         while(true){
             System.out.println("Are you admin or customer press 1 for admin press 2 for customer");
             int option = scan.nextInt();
@@ -53,8 +55,8 @@ public class Main {
             System.out.println("Press E/e to exit else any other key");
             s = scan.next();
         }while (!s.equalsIgnoreCase("E"));
-        billing.displayCartItems();
-        System.out.println(billing.getTotalCost());
+        System.out.println("Your car items with quantity: \n" +billing.displayCartItems());
+        System.out.println("Your total amount: " +billing.getTotalCost());
 
         System.out.println("Enter your payment method 1. Card 2. Cash");
         int payOption = scan.nextInt();
